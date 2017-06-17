@@ -19,9 +19,9 @@
   <body>
     <h2>User Console --> </h2>
     <br>
-    <img src="icon.png"> --> Light working fine  <br>
-    <img src="out_of_order.png"> --> Light not working <br>
-    <img src="maintain.png"> ---> Requires repair
+    <img src="../icon.png"> --> Light working fine  <br>
+    <img src="../out_of_order.png"> --> Light not working <br>
+    <img src="../maintain.png"> ---> Requires repair
     <br><br>
     <div id="map"></div>
     <script>
@@ -40,7 +40,7 @@
           zoom: 14,
           center: myLatLng
         });
-        var image = 'icon.png';
+        var image = '../icon.png';
         // Initializing all traffic signals with default traffic light symbol
       marker = new google.maps.Marker({
           position: myLatLng,
@@ -67,8 +67,8 @@
       icon: image
     });
     // changing markers accordingly
-    marker2.setIcon('maintain.png');
-    marker3.setIcon('out_of_order.png');
+    marker2.setIcon('../maintain.png');
+    marker3.setIcon('../out_of_order.png');
     //the value of markers can be dynamically changed
       }
   </script>
