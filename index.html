@@ -20,28 +20,117 @@
   </head>
   <body>
     <h2>Map marked at the crossing </h2>
-    <br><br><br><br><br><br><br>
+    <br><button type="button" class="btn btn-lg btn-default " onclick="working()">Working fine</button>
+    <button type="button" class="btn btn-lg btn-default " onclick="broken()">Broken</button>
+    <button type="button" class="btn btn-lg btn-default " onclick="repair()">Needs maintainnance</button>
+    <select id="select_val" name="Number">
+    <option id="1" value="1" selected="selected">ONE</option>
+    <option id="2" value="2" >TWO</option>
+    <option id="3" value="3">THREE</option>
+  </select>
+    <br><br>
+    <img src="icon.png"> --> Light working fine  <br>
+    <img src="out_of_order.png"> --> Light not working <br>
+    <img src="maintain.png"> ---> Requires repair
+    <br><br>
+
     <div id="map"></div>
     <script>
 
+    function show()
+    {
+      var val = document.getElementById('select_val').value;
+      console.log(val);
+
+    }
+    var marker;
       function initMap() {
         var myLatLng = {lat: 28.5925755, lng: 77.3573729};
+        var myLatLng2 = {lat: 28.6007572, lng: 77.3720213};
+        var myLatLng3 = {lat: 28.6006731, lng: 77.3796557};
+
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
           center: myLatLng
         });
         var image = 'icon.png';
-        var marker = new google.maps.Marker({
+
+      marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
           title: 'Road crossing',
           icon: image
         });
+      marker2 = new google.maps.Marker({
+        position: myLatLng2,
+        map: map,
+        title: 'Road crossing',
+        icon: image
+      });
+      marker3 = new google.maps.Marker({
+      position: myLatLng3,
+      map: map,
+      title: 'Road crossing',
+      icon: image
+    });
+
+      }
+      function working()
+      {             console.log(document.getElementById('select_val').value);
+
+          if(document.getElementById('select_val').value === '1')
+          {
+            console.log(document.getElementById('select_val').value);
+            marker.setIcon('icon.png');
+
+          }
+          else if (document.getElementById('select_val').value === '2')
+         {
+            marker2.setIcon('icon.png');
+         }
+         else if(document.getElementById('select_val').value === '3')
+         {
+           marker3.setIcon('icon.png');
+         }
+      }
+      function broken()
+      {
+        if(document.getElementById('select_val').value === '1')
+        {
+          console.log(document.getElementById('select_val').value);
+          marker.setIcon('out_of_order.png');
+
+        }
+        else if (document.getElementById('select_val').value === '2')
+       {
+          marker2.setIcon('out_of_order.png');
+       }
+       else if(document.getElementById('select_val').value === '3')
+       {
+         marker3.setIcon('out_of_order.png');
+       }
+      }
+      function repair()
+      {
+        if(document.getElementById('select_val').value === '1')
+        {
+          console.log(document.getElementById('select_val').value);
+          marker.setIcon('maintain.png');
+
+        }
+        else if (document.getElementById('select_val').value === '2')
+       {
+          marker2.setIcon('maintain.png');
+       }
+       else if(document.getElementById('select_val').value === '3')
+       {
+         marker3.setIcon('maintain.png');
+       }
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeIkrII27B4xarwexYO1jW3Upx9V1JQA&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN__CZ43WBYBhkvXJpIRJeDzuux8RRUq8&callback=initMap">
     </script>
   </body>
 </html>
