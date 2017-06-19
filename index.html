@@ -8,7 +8,7 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 50%;
+        height: 40%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -20,9 +20,15 @@
   </head>
   <body>
     <h2>Map marked at the crossing </h2>
+    <h3> Step 1: Click on the position in the map where you want to add the marker <br>
+      Step 2: A prompt will appear asking to give you the id. Give the id and hit enter. <br>
+      Step 3: A success message will pop up. Hit enter <br>
+      Step 4: Your marker is added in the point where you clicked. Now click on the marker to edit it <br>
+      Step 5: Choose from the buttons on what you want to do on each marker
+    </h3>
     <button type="button" class="btn btn-lg btn-default " onclick="clearAll()">Clear all markers</button>
 
-    <br><br>
+    <br>
     <img src="icon.png"> --> Light working fine  <br>
     <img src="out_of_order.png"> --> Light not working <br>
     <img src="maintain.png"> ---> Requires repair
