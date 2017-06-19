@@ -53,13 +53,15 @@
                 var marker = new google.maps.Marker({
                     position: location,
                     map: map,
-                    icon: image
+                    icon: image,
+                    customInfo: uniqueCode
 
                 });
 
                 //Set unique id
                 marker.id = uniqueId;
                 uniqueId++;
+                window.alert("Success! Created marker with id: " + uniqueCode + " Click on the marker to configure more.");
 
                 //Attach click event handler to the marker.
                 google.maps.event.addListener(marker, "click", function (e) {
@@ -68,7 +70,7 @@
                     content += "<input type = 'button'  onclick = 'fine(" + marker.id + ");' value = 'Working Fine' />";
                     content += "<input type = 'button'  onclick = 'repair(" + marker.id + ");' value = 'Needs Repair' />";
                     content += "<input type = 'button'  onclick = 'broken(" + marker.id + ");' value = 'Broken' />";
-                    content += "</br> <b> Unique code is: " + uniqueCode; + "</b>";
+                    content += "</br> <b> Unique code is: " + this.customInfo + "</b>";
 
                     var infoWindow = new google.maps.InfoWindow({
                         content: content
