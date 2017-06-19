@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marking in google map</title>
+    <style>
+      #map {
+        height: 60%;
+      }
+     html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>User Console --> </h2>
+    <br>
+    <img src="icon.png"> --> Light working fine  <br>
+    <img src="out_of_order.png"> --> Light not working <br>
+    <img src="maintain.png"> ---> Requires repair
+    <br><br>
+    <div id="map"></div>
+    <script>
+    function show()
+    {
+      var val = document.getElementById('select_val').value;
+      console.log(val);
+    }
+    var marker;
+      function initMap() {
+        var myLatLng = {lat: 28.5925755, lng: 77.3573729};
+        var myLatLng2 = {lat: 28.6007572, lng: 77.3720213};
+        var myLatLng3 = {lat: 28.6006731, lng: 77.3796557};
+        var myLatLng4 = {lat: 28.595495, lng: 77.352222};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: myLatLng
+        });
+        var image = 'icon.png';
+        // Initializing all traffic signals with default traffic light symbol
+      marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Road crossing 1',
+          icon: image
+        });
+      marker2 = new google.maps.Marker({
+        position: myLatLng2,
+        map: map,
+        title: 'Road crossing 2',
+        icon: image
+      });
+      marker3 = new google.maps.Marker({
+      position: myLatLng3,
+      map: map,
+      title: 'Road crossing 3',
+      icon: image
+    });
+    marker4 = new google.maps.Marker({
+      position: myLatLng4,
+      map: map,
+      title: 'Road crossing 4',
+      icon: image
+    });
+    // changing markers accordingly
+    marker2.setIcon('maintain.png');
+    marker3.setIcon('out_of_order.png');
+    //the value of markers can be dynamically changed
+      }
+  </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN__CZ43WBYBhkvXJpIRJeDzuux8RRUq8&callback=initMap">
+    </script>
+  </body>
+</html>

@@ -20,14 +20,8 @@
   </head>
   <body>
     <h2>Map marked at the crossing </h2>
-    <br><button type="button" class="btn btn-lg btn-default " onclick="working()">Working fine</button>
-    <button type="button" class="btn btn-lg btn-default " onclick="broken()">Broken</button>
-    <button type="button" class="btn btn-lg btn-default " onclick="repair()">Needs maintainnance</button>
-    <select id="select_val" name="Number">
-    <option id="1" value="1" selected="selected">ONE</option>
-    <option id="2" value="2" >TWO</option>
-    <option id="3" value="3">THREE</option>
-  </select>
+    <button type="button" class="btn btn-lg btn-default " onclick="clearAll()">Clear all markers</button>
+
     <br><br>
     <img src="icon.png"> --> Light working fine  <br>
     <img src="out_of_order.png"> --> Light not working <br>
@@ -35,100 +29,118 @@
     <br><br>
 
     <div id="map"></div>
-    <script>
+    <script type="text/javascript">
+        var markers = [];
+        var uniqueId = 1;
+        var uniqueCode;
+        window.onload = function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(28.5925755, 77.3573729),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    function show()
-    {
-      var val = document.getElementById('select_val').value;
-      console.log(val);
+            //Attach click event handler to the map.
+            google.maps.event.addListener(map, 'click', function (e) {
 
-    }
-    var marker;
-      function initMap() {
-        var myLatLng = {lat: 28.5925755, lng: 77.3573729};
-        var myLatLng2 = {lat: 28.6007572, lng: 77.3720213};
-        var myLatLng3 = {lat: 28.6006731, lng: 77.3796557};
+                //Determine the location where the user has clicked.
+                var location = e.latLng;
+                var image = 'icon.png'
+                uniqueCode = prompt("Please enter the unique code for this traffic light");
 
+                //Create a marker and placed it on the map.
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    icon: image
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: myLatLng
-        });
-        var image = 'icon.png';
+                });
 
-      marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Road crossing',
-          icon: image
-        });
-      marker2 = new google.maps.Marker({
-        position: myLatLng2,
-        map: map,
-        title: 'Road crossing',
-        icon: image
-      });
-      marker3 = new google.maps.Marker({
-      position: myLatLng3,
-      map: map,
-      title: 'Road crossing',
-      icon: image
-    });
+                //Set unique id
+                marker.id = uniqueId;
+                uniqueId++;
 
-      }
-      function working()
-      {             console.log(document.getElementById('select_val').value);
+                //Attach click event handler to the marker.
+                google.maps.event.addListener(marker, "click", function (e) {
+                    var content = 'Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
+                    content += "<br /><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />";
+                    content += "<input type = 'button'  onclick = 'fine(" + marker.id + ");' value = 'Working Fine' />";
+                    content += "<input type = 'button'  onclick = 'repair(" + marker.id + ");' value = 'Needs Repair' />";
+                    content += "<input type = 'button'  onclick = 'broken(" + marker.id + ");' value = 'Broken' />";
+                    content += "</br> <b> Unique code is: " + uniqueCode; + "</b>";
 
-          if(document.getElementById('select_val').value === '1')
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: content
+                    });
+
+                    infoWindow.open(map, marker);
+                });
+
+                //Add marker to the array.
+                markers.push(marker);
+            });
+        };
+        function DeleteMarker(id) {
+            //Find and remove the marker from the Array
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].id == id) {
+                    //Remove the marker from Map
+                    markers[i].setMap(null);
+
+                    //Remove the marker from array.
+                    markers.splice(i, 1);
+                    return;
+                }
+            }
+        };
+        function fine(id) {
+            //Find and remove the marker from the Array
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].id == id) {
+                    //Remove the marker from Map
+                    markers[i].setIcon('icon.png');
+
+                    //Remove the marker from array.
+                    return;
+                }
+            }
+        };
+        function repair(id) {
+            //Find and remove the marker from the Array
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].id == id) {
+                    //Remove the marker from Map
+                    markers[i].setIcon('maintain.png');
+
+                    //Remove the marker from array.
+                    return;
+                }
+            }
+        };
+        function broken(id) {
+            //Find and remove the marker from the Array
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].id == id) {
+                    //Remove the marker from Map
+                    markers[i].setIcon('out_of_order.png');
+
+                    //Remove the marker from array.
+                    return;
+                }
+            }
+        };
+        function clearAll()
+        {
+          for (var i = 0; i < markers.length; i++)
           {
-            console.log(document.getElementById('select_val').value);
-            marker.setIcon('icon.png');
-
+            markers[i].setMap(null);
           }
-          else if (document.getElementById('select_val').value === '2')
-         {
-            marker2.setIcon('icon.png');
-         }
-         else if(document.getElementById('select_val').value === '3')
-         {
-           marker3.setIcon('icon.png');
-         }
-      }
-      function broken()
-      {
-        if(document.getElementById('select_val').value === '1')
-        {
-          console.log(document.getElementById('select_val').value);
-          marker.setIcon('out_of_order.png');
-
+          markers.length = 0;
         }
-        else if (document.getElementById('select_val').value === '2')
-       {
-          marker2.setIcon('out_of_order.png');
-       }
-       else if(document.getElementById('select_val').value === '3')
-       {
-         marker3.setIcon('out_of_order.png');
-       }
-      }
-      function repair()
-      {
-        if(document.getElementById('select_val').value === '1')
-        {
-          console.log(document.getElementById('select_val').value);
-          marker.setIcon('maintain.png');
-
-        }
-        else if (document.getElementById('select_val').value === '2')
-       {
-          marker2.setIcon('maintain.png');
-       }
-       else if(document.getElementById('select_val').value === '3')
-       {
-         marker3.setIcon('maintain.png');
-       }
-      }
     </script>
+
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN__CZ43WBYBhkvXJpIRJeDzuux8RRUq8&callback=initMap">
     </script>
