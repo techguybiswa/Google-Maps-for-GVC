@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IoT app with MQTT</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+
+    <div class="container">
+      <br>
+      <h1 class="text text-center text-primary"> <b>IoT app</b> </h1>
+      <br>
+      <button type="button" class="btn btn-block btn-primary " onclick="showDiv()">Settings</button>
+    </div>
+    <script type="text/javascript">
+      function showDiv()
+      {
+        document.getElementById('settings').style.display= "block";
+      }
+    </script>
+    <br><br><br><br>
+    <div class="container" id="settings" style="display: none;">
+
+<h5 class="text text-center">
+          <div class="row">
+            <div class="col-xs-6">
+              <label for="serverName">Server:  </label>
+              <br>
+              <input type="text" name="server"   placeholder = "Enter data here....." id="serverName">
+            </div>
+            <div class="col-xs-6">
+              <label for="portName">Port:  </label>
+              <br>
+              <input type="text" name="port"   placeholder = "Enter data here....." id="portName">
+            </div>
+            <br>
+          </div>
+          <div class="row">
+            <br><br>
+            <div class="col-xs-6">
+              <label for="userName">Username:  </label>
+              <br>
+              <input type="text" name="username"   placeholder = "Enter data here....." id="userName">
+            </div>
+            <div class="col-xs-6">
+              <label for="password">Password:  </label>
+              <br>
+              <input type="password" name="password"   placeholder = "Enter data here....." id="password">
+            </div>
+          </div>
+          <div class="row">
+            <br><br>
+            <div class="col-xs-6">
+              <label for="intopic">Intopic:  </label>
+              <br>
+              <input type="text" name="intopic"  placeholder = "Enter data here....." id="intopic">
+            </div>
+            <div class="col-xs-6">
+              <label for="outtopic">Outtopic:  </label>
+              <br>
+              <input type="text" name="outtopic" placeholder = "Enter data here....." id="outtopic">
+            </div>
+          </div>
+          <br>
+          <button type="button" class="btn btn-sm btn-primary " onclick="save()">Save</button>
+          <button type="button" class="btn btn-sm btn-danger " onclick="reload()">Reload</button>
+
+
+</h5>
+
+
+    </div>
+
+
+<script type="text/javascript">
+
+
+function save()
+{
+  var server = document.getElementById('serverName').value;
+  var port =  document.getElementById('portName').value;
+  var username =  document.getElementById('userName').value;
+  var password =  document.getElementById('password').value;
+  var intopic =  document.getElementById('intopic').value;
+  var outtopic =  document.getElementById('outtopic').value;
+  localStorage.setItem("server", server);
+  localStorage.setItem("port", port);
+  localStorage.setItem("username", username);
+  localStorage.setItem("password", password);
+  localStorage.setItem("intopic", intopic);
+  localStorage.setItem("outtopic", outtopic);
+  window.alert("All data saved successfully!");
+}
+function reload()
+{
+  window.alert("All data reloaded");
+  document.getElementById('serverName').value = localStorage.getItem("server");
+  document.getElementById('portName').value = localStorage.getItem("port");
+  document.getElementById('userName').value = localStorage.getItem("username");
+  document.getElementById('password').value = localStorage.getItem("password");
+  document.getElementById('intopic').value = localStorage.getItem("intopic");
+  document.getElementById('outtopic').value = localStorage.getItem("outtopic");
+
+
+}
+
+</script>
+
+
+  </body>
+</html>
