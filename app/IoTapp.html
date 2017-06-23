@@ -182,6 +182,7 @@
         function onMessageArrived(message) {
           var tdTopic = document.createElement("td");
           tdTopic.textContent = message.destinationName;
+          console.log("Message destination:" + message.destinationName);
           console.log("message: " + message.payloadString);
           console.log("message dest: " + message.destinationName);
 
