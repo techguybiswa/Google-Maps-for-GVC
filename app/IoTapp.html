@@ -156,9 +156,9 @@
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           message = new Paho.MQTT.Message(document.getElementById("message").value);
-          message.destinationName = "WOW";
+          message.destinationName = intopic;
           client.send(message);
-        //  client.publish("outTopic",message);
+          client.publish(outtopic,message);
 
         });
 
@@ -167,7 +167,7 @@
           // Once a connection has been made, make a subscription and send a message.
           console.log("CONNECTED");
           window.alert("CONNECTED");
-          client.subscribe("WOW");
+          client.subscribe(intopic);
         }
 
         // called when the client loses its connection
@@ -220,31 +220,23 @@
           errDiv.textContent = "Could not connect to WebSocket server, most likely you're behind a firewall that doesn't allow outgoing connections to port 30755";
           errDiv.style.display = "block";
         }
-
         var clientId = "ws" + Math.random();
         // Create a client instance
         var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 30755 , clientId);
-
         // set callback handlers
         client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;
-
+        console.log("This is an amzing username: " + username);
         // connect the client
         client.connect({
           useSSL: true,
-          userName: "oxyosxbv",
-          password: "5b_5scvgjADw",
+          userName: username,
+          password: password,
           onSuccess: onConnect,
           onFailure: onFailure
         });
       }
-
-
       </script>
     </div>
-
-
-
-
   </body>
 </html>
