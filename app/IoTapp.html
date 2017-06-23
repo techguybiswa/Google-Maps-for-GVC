@@ -78,7 +78,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="container" id="send_rcv" style="display: none;">
       <div class="row">
         <div class="col-xs-3">
           <br><br>
@@ -151,6 +151,8 @@
         console.log("port: " + port);
         console.log("server: " + server);
         console.log("password: " + password);
+        document.getElementById('send_rcv').style.display = "block";
+        document.getElementById('settings').style.display = "none";
 
         var form = document.forms["send"];
         form.addEventListener("submit", function (e) {
