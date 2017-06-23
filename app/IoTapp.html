@@ -222,7 +222,11 @@
         }
         var clientId = "ws" + Math.random();
         // Create a client instance
-        var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 30755 , clientId);
+        console.log("Hello, so the server is: " + server);
+        console.log("The lenght of server is: " + server.length);
+        port = parseInt(port);
+        console.log("The amazing port is: "+ port);
+        var client = new Paho.MQTT.Client(server, port , clientId);
         // set callback handlers
         client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;
