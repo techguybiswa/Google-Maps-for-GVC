@@ -1,6 +1,8 @@
+
 var server,port,username,password,intopic,outtopic;
 function save()
 {
+  // saving all input fields in local storage under various variable name
   server = document.getElementById('serverName').value;
   port =  document.getElementById('portName').value;
   username =  document.getElementById('userName').value;
@@ -17,6 +19,7 @@ function save()
 }
 function reload()
 {
+  // reloading all data to input fields
   window.alert("All data reloaded");
   document.getElementById('serverName').value = localStorage.getItem("server");
   document.getElementById('portName').value = localStorage.getItem("port");
@@ -35,18 +38,15 @@ function reload()
 }
 function start()
 {
+  // main function resposnible for implementing the MQTT protocol
   server = document.getElementById('serverName').value;
   port =  document.getElementById('portName').value;
   username =  document.getElementById('userName').value;
   password =  document.getElementById('password').value;
   intopic =  document.getElementById('intopic').value;
   outtopic =  document.getElementById('outtopic').value;
-  console.log("username: "+ username);
-  console.log("uesrname: " + username);
-  console.log("uesrname: " + username);
-  console.log("port: " + port);
-  console.log("server: " + server);
-  console.log("password: " + password);
+  document.getElementById('send_rcv').style.display = "block";
+  document.getElementById('settings').style.display = "none";
 
   var form = document.forms["send"];
   form.addEventListener("submit", function (e) {
@@ -61,7 +61,6 @@ function start()
   // called when the client connects
   function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
-    console.log("CONNECTED");
     window.alert("CONNECTED");
     client.subscribe(intopic);
   }
@@ -69,7 +68,6 @@ function start()
   // called when the client loses its connection
   function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:", responseObject.errorMessage);
       setTimeout(function() { client.connect() }, 5000);
     }
   }
@@ -78,36 +76,10 @@ function start()
   function onMessageArrived(message) {
     var tdTopic = document.createElement("td");
     tdTopic.textContent = message.destinationName;
-    console.log("message: " + message.payloadString);
-    console.log("message dest: " + message.destinationName);
-
     var node = document.createElement("LI");
     var textnode = document.createTextNode(message.payloadString);
     node.appendChild(textnode);
     document.getElementById("messg").appendChild(node);
-    //
-    // var tdMsg = document.createElement("td");
-    // try {
-    //   tdMsg.textContent = message.payloadString;
-    // } catch (e) {
-    //   //tdMsg.textContent = "*** Binary data ***";
-    //   var pre = document.createElement("pre");
-    //   var base64 = btoa(String.fromCharCode.apply(null, message.payloadBytes));
-    //   pre.textContent = base64.replace(/(.{72})/g, "$1\n");
-    //   var note = document.createElement("em");
-    //   note.textContent = "Binary data (base64 encoded)"
-    //   tdMsg.appendChild(note);
-    //   tdMsg.appendChild(pre)
-    // }
-    //
-    // var tr = document.createElement("tr");
-    // tr.appendChild(tdTopic);
-    // tr.appendChild(tdMsg);
-    // console.log("tdMsg: " + tdMsg);
-    // console.log("tdTopic: " + tdTopic);
-    // console.log("tr: " + tr);
-    //
-    // document.getElementById("msgs").appendChild(tr);
     window.alert("One new message");
   }
 
@@ -118,11 +90,11 @@ function start()
   }
   var clientId = "ws" + Math.random();
   // Create a client instance
-  var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 30755 , clientId);
+  port = parseInt(port);
+  var client = new Paho.MQTT.Client(server, port , clientId);
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
-  console.log("This is an amzing username: " + username);
   // connect the client
   client.connect({
     useSSL: true,
